@@ -7,14 +7,22 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "tauri": "tauri"
+    "tauri": "tauri",
+    "upgrade:whistle": "git subtree pull --prefix=vendor/whistle https://github.com/avwo/whistle master --squash && npm run update:node_modules",
+    "update:node_modules": "npx rimraf vendor/files/node/modules && cd vendor/files/node && echo {} > package.json && pnpm add --engine-strict=false ../../whistle-start ../../whistle whistle.vase ../../whistle.scriptfile ../../whistle.chii-internal --production=true && mv node_modules modules && cd ../../.. && pnpm run update:zip",
+    "update:zip": "cd vendor && rimraf files.zip && bestzip files.zip files/",
+    "update:zip-fullnode": "cd vendor && rimraf files.zip && bestzip files.zip files/",
+    "update:node": "node scripts/update-node.js",
+    "install-deps": "pnpm install --ignore-engines && pnpm run update:node && pnpm run update:node_modules"
   },
   "dependencies": {
     "@tauri-apps/api": "^1.2.0"
   },
   "devDependencies": {
     "@tauri-apps/cli": "^1.2.2",
-    "vite": "^4.0.0",
-    "typescript": "^4.8.2"
+    "bestzip": "^2.2.1",
+    "rimraf": "^4.4.1",
+    "typescript": "^4.8.2",
+    "vite": "^4.0.0"
   }
 }
