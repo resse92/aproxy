@@ -18,7 +18,9 @@
         "open": true
       },
       "fs": {
-        "scope": ["$RESOURCCE/*"]
+        "scope": [
+          "$RESOURCCE/*"
+        ]
       },
       "path": {
         "all": true
@@ -35,7 +37,9 @@
       ],
       "identifier": "com.tauri.dev",
       "targets": "all",
-      "resources": ["../vendor/files.zip"]
+      "resources": [
+        "../vendor/files.zip"
+      ]
     },
     "security": {
       "csp": null
