@@ -18,7 +18,13 @@ async fn copyNodeFiles(handle: &tauri::AppHandle) {
         let outpath_dir = target_path;
         print!("extract file to folder: {:?}", outpath_dir);
         for i in 0..archive.len() {
-            let mut file = archive.by_index(i).unwrap();
+            let mut file = match archive.by_index(i) {
+                Ok(r) => r,
+                Err(e) => {
+                    println!("解压文件失败 {:?}", e);
+                    continue;
+                }
+            };
             let outpath = match file.enclosed_name() {
                 Some(path) => path.to_owned(),
                 None => continue,
